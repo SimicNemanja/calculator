@@ -1,0 +1,63 @@
+body{
+    background-color:  #c2c2d6 ;
+}
+
+td{
+    border: solid 2px black;
+    position:static;
+}
+td:hover{
+    border: 1px solid white;
+    color: black;
+}
+#calculator{
+    width: 400px;
+    height: 500px;
+    margin: auto;
+    margin-top: 10%;
+    background-color: black;
+}
+
+#display0{
+    height: 20px;
+    color: #FFA500;
+    text-align: end;
+    font-size: 20px;
+    vertical-align: text-top;
+    
+}
+#display1{
+    height: 50px;
+    color: white;
+    font-size: 20px;
+    text-align: end;
+    padding-top: 10px;
+}
+
+.operation{
+    background-color: rgb(102, 102, 102);
+}
+
+#ac{
+    background-color: rgb(172,57,57);
+}
+
+.number{
+    background-color: #4d4d4d;
+}
+
+#point{
+    background-color: #4d4d4d;
+}
+
+#equals{
+    background-color: rgb(0, 68, 102);
+}
+
+table{    
+    margin: auto;
+    width: 380px;
+    height: 410px;
+    color: white;
+    text-align: center;
+}
