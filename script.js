@@ -1,5 +1,4 @@
 let equation = []
-let display=[]
 
 let buttonsNumber=document?.querySelectorAll('.number')
 let buttonsOperation=document?.querySelectorAll('.operation')
@@ -25,9 +24,7 @@ for(let i=0;i<buttonsOperation.length;i++)
 //Making the equation
 function addEquation(any){
     equation.push(any)
-    display=equationgit
-    console.log('Ovo je display' + display)
-    document.querySelector('#display0').innerText=display
+    document.querySelector('#display0').innerText=equation
     if(equation[equation.length-1]=='.') 
         document.querySelector('#display1').innerText=equation[equation.length-2]+'.'
     else document.querySelector('#display1').innerText=equation[equation.length-1]
