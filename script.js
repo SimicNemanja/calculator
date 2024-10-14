@@ -1,37 +1,49 @@
-let buttonsNumber=document.querySelectorAll('.number')
-let numbers=[]
+let equation = []
+let display=[]
 
-let buttonsOperation=document.querySelectorAll('.operation')
-let operation=[]
+let buttonsNumber=document?.querySelectorAll('.number')
+let buttonsOperation=document?.querySelectorAll('.operation')
 
-let buttonDelete=document.querySelector('#ac')
-let ac=buttonDelete.innerHTML
-buttonDelete.addEventListener('click', ()=> alert(ac))
+let buttonDelete=document?.querySelector('#ac')
+buttonDelete?.addEventListener('click', ()=> clear())
 
-let buttonPoint=document.querySelector('#point')
-let p=buttonPoint.innerHTML
-buttonPoint.addEventListener('click', ()=> alert(p))
+let buttonPoint=document?.querySelector('#point')
+buttonPoint?.addEventListener('click', ()=> addEquation(buttonPoint.innerHTML))
 
-let buttonEquals=document.querySelector('#equals')
-let equals=buttonEquals.innerHTML
-buttonEquals.addEventListener('click', ()=> alert(equals))
+let buttonEquals=document?.querySelector('#equals')
+buttonEquals?.addEventListener('click', ()=> solve())
 
+//on the click of the number button add element
 for(let i=0;i<buttonsNumber.length;i++){
-    numbers[i]=buttonsNumber[i]?.innerHTML - 0
+    buttonsNumber[i]?.addEventListener('click', () => { addEquation(buttonsNumber[i].innerHTML); console.log(equation)})
 }
 
-for(let i=0;i<buttonsOperation.length;i++){
-    operation[i]=buttonsOperation[i]?.innerHTML
+//on the click of the operation button add element
+for(let i=0;i<buttonsOperation.length;i++)
+    buttonsOperation[i]?.addEventListener('click', () => addEquation(buttonsOperation[i].innerHTML)) 
+
+//Making the equation
+function addEquation(any){
+    equation.push(any)
+    display=equationgit
+    console.log('Ovo je display' + display)
+    document.querySelector('#display0').innerText=display
+    if(equation[equation.length-1]=='.') 
+        document.querySelector('#display1').innerText=equation[equation.length-2]+'.'
+    else document.querySelector('#display1').innerText=equation[equation.length-1]
 }
 
-// TODO: create a function that prints a number on the display
-for(let i=0;i<numbers.length;i++){
-    buttonsNumber[i].addEventListener('click', ()=> alert(numbers[i]))
+//Functionality AC button
+function clear(){
+    equation=[]
+    document.querySelector("#display0").innerHTML=""
+    document.querySelector("#display1").innerHTML=""
 }
 
-
-// TODO: create a function that prints a number on the display
-for(let i=0;i<operation.length;i++){
-    buttonsOperation[i].addEventListener('click', ()=> alert(operation[i]))
+function solve(){
+    let solve=0
+    equation.push('=')
+    equation.push(solve)
+    document.querySelector('#display0').innerText=equation
+    document.querySelector('#display1').innerText=equation[equation.length-1]
 }
-
