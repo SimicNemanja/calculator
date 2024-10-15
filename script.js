@@ -1,25 +1,22 @@
 let equation = []
 let point=false
-let binaryOperation=false
 let negative=false
 
 let buttonsNumber=document?.querySelectorAll('.number')
 let buttonsOperation=document?.querySelectorAll('.operation')
-
+//on the click of the button AC delete equation
 let buttonDelete=document?.querySelector('#ac')
 buttonDelete?.addEventListener('click', ()=> clear())
-
+//on the click of the point add point in equation
 let buttonPoint=document?.querySelector('#point')
 buttonPoint?.addEventListener('click', ()=> addEquation(buttonPoint.innerHTML,3))
-
+//on the click of the equal calculate the equation
 let buttonEquals=document?.querySelector('#equals')
 buttonEquals?.addEventListener('click', ()=> solve())
-
 //on the click of the number button add element
 for(let i=0;i<buttonsNumber.length;i++){
     buttonsNumber[i]?.addEventListener('click', () => { addEquation(buttonsNumber[i].innerHTML,1); console.log(equation)})
 }
-
 //on the click of the operation button add element
 for(let i=0;i<buttonsOperation.length;i++)
     buttonsOperation[i]?.addEventListener('click', () => addEquation(buttonsOperation[i].innerHTML,2)) 
@@ -55,6 +52,7 @@ function addNumber(any){
         equation.push(Number(any))
     }
     else if(equation.length===0) equation.push(Number(any))
+    return
 }
 //Function to add binaryOperation in equation
 function addBinaryOperation(any){
@@ -82,8 +80,6 @@ function addBinaryOperation(any){
         equation.push(any)
         negative=true
     }
-
-    
 }
 //function to add point in equation
 function addPoint(any){
@@ -101,7 +97,6 @@ function addPoint(any){
         equation.push(any)
         point=true
     }
-
 }
 //Functionality AC button
 function clear(){
@@ -109,11 +104,9 @@ function clear(){
     document.querySelector("#display0").innerHTML=""
     document.querySelector("#display1").innerHTML=""
 }
-
 function solve(){
     let solve=0
     let tmp
-    
     tmp=equation.toString()
     for(i=0;i<equation.length;i++)
         tmp=tmp.replace(',','')
