@@ -1,6 +1,8 @@
 let equation = []
 let point=false
 let negative=false
+let zero=false
+let binnary=false
 
 let buttonsNumber=document?.querySelectorAll('.number')
 let buttonsOperation=document?.querySelectorAll('.operation')
@@ -36,84 +38,99 @@ function addEquation(any, sp){
 }
 //Function to add number in equation
 function addNumber(any){
-    if(equation[equation.length-1]==='.'){
+    if(equation.length===0){
+        equation.push(String(any));
+        zero=(any==0)
+    }
+    else if(Number(equation[equation.length-1]) || Number(equation[equation.length-1])===0){
+        if(!zero){
+            equation.push(String(equation.pop())+any)
+        }
+        else if(zero && any!=0){
+            equation.pop()
+            equation.push(String(any))
+            zero=false
+        }
+    }
+    else if(String(equation[equation.length]) && !point){
+        zero= (any==0)
+        if(negative){
+            equation.pop()
+            equation.push(String(-any))
+            negative=false;
+        }
+        else {
+            equation.push(String(any))
+        }
+    }
+    else {
         let tmp=equation.pop()
-        equation.push(Number(String(equation.pop()+tmp+any)))
+        equation.push(String(equation.pop()+tmp+any))
     }
-    else if(Number(equation[equation.length-1])) {
-        equation.push(Number(equation.pop()+any))
-    }
-    else if(!Number(equation[equation.length-1]) && negative) {
-        equation.pop()
-        equation.push(-Number(any))
-        negative=true
-    }
-    else if(!Number(equation[equation.length-1]) && !negative ){
-        equation.push(Number(any))
-    }
-    else if(equation.length===0) equation.push(Number(any))
-    return
 }
 //Function to add binaryOperation in equation
 function addBinaryOperation(any){
     point=false
-    if(equation[equation.length-1]==='.') {
-        equation.pop()
-        equation.pop()
-        equation.push(Number(0))
+    if(equation.length===0){
+        equation.push(any)
+        binnary=true
+    }
+    else if(Number(equation[equation.length-1]) || Number(equation[equation.length-1])===0){
         equation.push(any)
     }
-    else if(Number(equation[equation.length-1])){
-        equation.push(any)
-        negative=false
-    }
-    else if(String(equation[equation.length-1]) && any!='-'){
-        if(!negative)
-        {equation.pop()}
-        else {
-            equation.pop(); equation.pop()
+    else if(String(equation[equation.length-1])){
+        if(any!='-'){
+            equation.pop()
+            if(equation[equation.length-1]=='/' || equation[equation.length-1]=='+' || equation[equation.length-1]=='*') { 
+                equation.pop()
+                negative=false
+            }
+            equation.push(any)
         }
-        equation.push(any)
-        negative=false
-    }
-    else if(String(equation[equation.length-1]) && any==='-' && !negative){
-        equation.push(any)
-        negative=true
+        else{
+            equation.push(any)
+            negative=true
+        }
     }
 }
 //function to add point in equation
 function addPoint(any){
-    if(equation.length===0 && !point){
-        equation.push(Number(0))
+    if(equation.length===0){
+        equation.push(String(0))
         equation.push(any)
         point=true
     }
-    else if(Number(equation[equation.length-1]) && !point){
-        equation.push(any)
-        point=true
+    else if(Number(equation[equation.length-1]) || Number(equation[equation.length-1])===0){
+        if(!point) {
+            equation.push(any)
+            point=true
+            zero=false
+        }
     }
-    else if(String(equation[equation.length-1]) && !point) {
-        equation.push(Number(0))
+    else if( String(equation[equation.length-1]) && !point){
+        equation.push(String(0))
         equation.push(any)
         point=true
     }
 }
 //Functionality AC button
 function clear(){
+    point=false
+    negative=false
+    binnary=false
+    zero=false
     equation=[]
     document.querySelector("#display0").innerHTML=""
     document.querySelector("#display1").innerHTML=""
 }
 function solve(){
-    let solve=0
-    let tmp
-    tmp=equation.toString()
+    equation=equation.toString()
     for(i=0;i<equation.length;i++)
-        tmp=tmp.replace(',','')
-    solve=eval(tmp)
-    equation.push('=')
-    equation.push(Number(solve))
-    document.querySelector('#display0').innerText=equation.join('')
+        equation=equation.replace(',','')
+    let solve=eval(equation)
+    document.querySelector('#display0').innerText=equation+'=' + solve
+    equation=[]
+    equation.push(String(solve))
     document.querySelector('#display1').innerText=solve
     return
 }
